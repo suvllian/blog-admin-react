@@ -4,7 +4,6 @@ import { BrowserRouter, Router, HashRouter, Match, Route,
 
 import Login from './page/login/index.jsx'
 
-
 class App extends Component {
 	render() {
 		return (
