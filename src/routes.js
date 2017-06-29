@@ -3,22 +3,14 @@ import { BrowserRouter, Router, HashRouter, Match, Route,
  Link, hashHistory, IndexRoute, Redirect, IndexLink } from 'react-router-dom'
 
 import Login from './page/login/index.jsx'
-
-class App extends Component {
-	render() {
-		return (
-			<div>
-	      { this.props.children }
-			</div>
-			);
-	}
-}
+import Container from './page/container/index.jsx'
 
 const routes = (
   <HashRouter history={hashHistory} >
-    <App>
-      <Route path="/" component={Login} />
-    </App>
+    <div>
+      <Route path="/" component={Container} />
+      <Route path="/login" component={Login} />
+    </div>
   </HashRouter>
 )
 
