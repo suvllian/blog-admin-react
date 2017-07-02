@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { Route, Link } from 'react-router-dom'
 import { Menu, Icon, Switch, Layout } from 'antd'
-
+import ImageList from './../image-list/image-list.jsx'
 
 const { Header, Footer, Sider, Content } = Layout
 const SubMenu = Menu.SubMenu
@@ -17,7 +18,7 @@ class Container extends Component {
 	        <Menu
 	          theme='dark'
 	          mode="inline"
-	          style={{ width: 200, paddingTop: 84 }}
+	          style={{ width: 200 }}
 	        >
 	          <SubMenu key="articl" title={<span><Icon type="folder" /><span>文章管理</span></span>}>
 	            <Menu.Item key="1">文章列表</Menu.Item>
@@ -25,7 +26,7 @@ class Container extends Component {
 	            <Menu.Item key="3">添加分类</Menu.Item>
 	          </SubMenu>
 	          <SubMenu key="camera" title={<span><Icon type="camera" /><span>图片管理</span></span>}>
-	            <Menu.Item key="4">图片列表</Menu.Item>
+	            <Menu.Item key="4"><Link to="/index/image">图片列表</Link></Menu.Item>
 	            <Menu.Item key="5">添加图片</Menu.Item>
 	            <Menu.Item key="6">添加分类</Menu.Item>
 	          </SubMenu>
@@ -38,10 +39,8 @@ class Container extends Component {
 	      </Sider>
         <Layout>
 			    <Header style={{ background: '#fff', marginLeft: '16px', padding: 24 }} />
-			    <Content style={{ margin: '24px 16px 0' }}>
-			      <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-			        content
-			      </div>
+			    <Content style={{ margin: '24px 16px 0', padding: 24, background: '#fff', minHeight: 360 }}>
+			      <Route path="/index/image" component={ImageList} />
 			    </Content>
 			    <Footer style={{ textAlign: 'center' }}>
 			      瓦尔登湖畔一棵松 ©2017 All Right Reserved
