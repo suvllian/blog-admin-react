@@ -1,0 +1,24 @@
+{
+  "env": {
+    "node": 1,
+    "browser": 1,
+    "mocha": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "extends": ["eslint:recommended","plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "quotes": ["error", "single"],
+    "indent": ["error", 2],
+    "no-console": off,
+  }
+}
