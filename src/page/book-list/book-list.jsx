@@ -9,18 +9,19 @@ const columns = [
   	dataIndex: 'rowIndex'
   },
   {
-  	title: '图片名称',
-  	dataIndex: 'iTopic'
+  	title: '书籍名称',
+  	dataIndex: 'iName'
   },
   {
-    title: '图片简介',
-    dataIndex: 'iContent'
+    title: '书籍简介',
+    dataIndex: 'iContent',
+    width: 300
   },
   {
-    title: '城市名',
-    dataIndex: 'cName'
+    title: '分类',
+    dataIndex: 'cClass'
   },
-   {
+  {
     title: '发布日期',
     dataIndex: 'iDate'
   },
@@ -33,31 +34,38 @@ const columns = [
     dataIndex: 'iLike'
   },
   {
-  	title: '图片预览',
+  	title: '书籍图片',
   	dataIndex: 'iImage',
-  	render: (text) => {
-  		return <img className="image-preview" src={`http://suvllian.com/static/images/travel/${text}.jpg`} />
-  	}
-  } 
+    render: (src) => {
+      return <img className="image-preview" src={src} />
+    }
+  },
+  {
+    title: '背景图片',
+    dataIndex: 'iBgLink',
+    render: (src) => {
+      return <img className="image-preview" src={src} />
+    }
+  }
 ]
 
-class ImageList extends Component {
+class BookList extends Component {
 	constructor(props) {
 		super(props);
 		
 		this.state = {
-			imageList: []
+			bookList: []
 		}
 	}
   
   componentDidMount() {
-  	fetch('http://127.0.0.1/sadmin/index.php?do=image&concrete=allImage')
+  	fetch('http://127.0.0.1/sadmin/index.php?do=book&concrete=allBook')
   	.then(res => res.json())
   	.then(res => {
       res.map((item, index) => {
         item.iShow = item.iShow ? "是" : "否"
       })
-  		this.setState({imageList: res})
+  		this.setState({bookList: res})
   	})
   }
 
@@ -65,7 +73,7 @@ class ImageList extends Component {
     return (
     	<div>
     		<Table 
-          data={this.state.imageList}
+          data={this.state.bookList}
           title={columns}
     		/>
     	</div>
@@ -73,4 +81,4 @@ class ImageList extends Component {
 	}
 }
 
-export default ImageList
+export default BookList
