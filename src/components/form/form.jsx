@@ -77,7 +77,6 @@ class FormBlock extends Component {
 	      format="YYYY-MM-DD"
 	      placeholder="请选择时间"
 	      showToday={false}
-	      ref={item => this.needToEmptyStyleComponents.push(item)}
 	    />
 		)
 	}
