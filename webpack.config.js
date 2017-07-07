@@ -25,9 +25,34 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, use: ['react-hot-loader', 'babel-loader?presets[]=react,presets[]=es2015'] },
-      { test: /\.(scss|css)$/, use: ExtractTextPlugin.extract({ fallback: 'style-loader', use:'css-loader?minimize=true!sass-loader'})},
-      { test: /\.(png|jpg)$/, use: 'url-loader?limit=25000&name=static/img/[name].[ext]' }
+      { 
+        test: /\.jsx?$/, 
+        exclude: /node_modules/, 
+        use: [
+        {
+          loader: 'react-hot-loader'
+        }, 
+        {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react', 'es2015'],
+            plugins: [
+              ["import", {"libraryName":"antd", "style":true}]
+            ] 
+          }
+        }]
+      },
+      { 
+        test: /\.(scss|css)$/, 
+        use: ExtractTextPlugin.extract({ 
+          fallback: 'style-loader', 
+          use:'css-loader?minimize=true!sass-loader'
+        })
+      },
+      { 
+        test: /\.(png|jpg)$/, 
+        use: 'url-loader?limit=25000&name=static/img/[name].[ext]' 
+      }
     ]
   },
   plugins: [
