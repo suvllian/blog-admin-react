@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import 'isomorphic-fetch'
-import Table from './../../components/table/table.jsx'
+import Table from './../../common/table/table.jsx'
 import bookColumns from './utils/book-columns.js'
 import './index.scss'
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-const columns = [
+const imageColumns = [
   {
   	title: '序号',
   	dataIndex: 'rowIndex'
@@ -32,10 +32,10 @@ const columns = [
   {
   	title: '图片预览',
   	dataIndex: 'iImage',
-  	render: (text) => {
-  		return <img className="image-preview" src={`http://suvllian.com/static/images/travel/${text}.jpg`} />
-  	}
+  	render: (text) => { 
+      return <img className="image-preview" src={`http:\/\/suvllian.com/static/images/travel/${text}.jpg`} />
+    }
   } 
-];
+]
 
-export default columns
+export default imageColumns

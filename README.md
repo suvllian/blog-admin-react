@@ -14,4 +14,4 @@
 * 菜单栏  
 * 登录页面  
 * 列表页  
-* antd按需加载[参考链接](https://ant.design/docs/react/introduce-cn)
+* antd按需加载：[参考链接](https://ant.design/docs/react/introduce-cn)

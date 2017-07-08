@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { Button, Modal } from 'antd'
 import 'isomorphic-fetch'
-import Table from './../../components/table/table.jsx'
-import FormModal from './../../components/form-modal/form-modal.jsx'
+import Table from './../../common/table/table.jsx'
+import FormModal from './../../common/form-modal/form-modal.jsx'
 import imageColumns from './utils/image-columns.js'
 import addImageFields from './utils/add-image-fields.js'
 import './index.scss'
@@ -18,8 +18,8 @@ class ImageList extends Component {
 		}
 
     this.addImage = this.addImage.bind(this)
-    this.submitImageInfo = this.submitImageInfo.bind(this)
     this.cancelSubmit = this.cancelSubmit.bind(this)
+    this.submitImageInfo = this.submitImageInfo.bind(this)
 	}
   
   componentDidMount() {
@@ -46,7 +46,7 @@ class ImageList extends Component {
   }
 
 	render() {
-    const { isAdding } = this.state
+    const { isAdding, imageList } = this.state
 
     return (
     	<div>
@@ -54,7 +54,7 @@ class ImageList extends Component {
           <Button type="primary" onClick={this.addImage}>添加</Button>
         </div>
     		<Table 
-          data={this.state.imageList}
+          data={imageList}
           title={imageColumns}
     		/>
         <FormModal

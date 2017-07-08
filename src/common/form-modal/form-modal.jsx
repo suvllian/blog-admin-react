@@ -12,6 +12,7 @@ class FormModal extends Component {
         onCancel={onCancel}
         visible={visible}
         onCancel={onCancel}
+        maskClosable={false}
         footer={null}
       >
         <FormBlock

@@ -16,9 +16,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'static/js/[name].[hash:20].js',
-    // 热更新时需要注释下面一行
-    // publicPath: "./"
+    chunkFilename: "[name].[chunkhash:20].chunk.js"
   },
   resolve:{
     extensions:['.js','.jsx']
@@ -37,7 +35,7 @@ module.exports = {
           options: {
             presets: ['react', 'es2015'],
             plugins: [
-              ["import", {"libraryName":"antd", "style":true}]
+              ["import", {libraryName:"antd", style: "css"}]
             ] 
           }
         }]
@@ -83,7 +81,7 @@ module.exports = {
     // 提供公共代码
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: 'static/js/[name].[hash:8].js'
+      filename: '[name].[hash:8].js'
     }),
 
     // 可在业务 js 代码中使用 __DEV__ 判断是否是dev模式（dev模式下可以提示错误、测试报告等, production模式不提示）
