@@ -12,10 +12,7 @@
 * 菜单栏  
 * 登录页面  
 * 列表页  
-<<<<<<< HEAD
 * antd按需加载：[参考链接](https://ant.design/docs/react/introduce-cn)
-=======
-* antd按需加载[参考链接](https://ant.design/docs/react/introduce-cn)
 * 项目目录规范
 * 组件封装
 
@@ -42,4 +39,3 @@
 |--webpack.config.js         // webpack配置文件
 .
 ```
->>>>>>> 8deef438865021765e595ef711536a7f71d6b0a6
