@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import 'isomorphic-fetch'
 import Table from './../../common/table/table.jsx'
 import bookColumns from './utils/book-columns.js'
-import './index.scss'
 
 class BookList extends Component {
 	constructor(props) {

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import 'isomorphic-fetch'
 import Table from './../../common/table/table.jsx'
 import articleColumns from './utils/article-columns.js'
-import './index.scss'
 
 class ArticleList extends Component {
 	constructor(props) {

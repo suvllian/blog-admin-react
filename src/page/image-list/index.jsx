@@ -5,7 +5,6 @@ import Table from './../../common/table/table.jsx'
 import FormModal from './../../common/form-modal/form-modal.jsx'
 import imageColumns from './utils/image-columns.js'
 import addImageFields from './utils/add-image-fields.js'
-import './index.scss'
 
 class ImageList extends Component {
 	constructor(props) {

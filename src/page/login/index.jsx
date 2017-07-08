@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import LoginForm from './components/login-form/login-form.jsx'
-import './index.scss'
 
 import loginBg from './../../assets/login_bg.png'
 const bgStyle = {
