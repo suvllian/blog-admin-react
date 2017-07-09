@@ -1,6 +1,6 @@
 const addImageFields = [
   {
-    label: "图片名称",
+    label: '图片名称',
     type: 'input',
     name: 'imageName',
     options: {
@@ -11,7 +11,7 @@ const addImageFields = [
     }
   },
   {
-    label: "图片简介",
+    label: '图片简介',
     type: 'input',
     name: 'imageContent',
     options: {
@@ -22,7 +22,7 @@ const addImageFields = [
     }
   },
   {
-    label: "城市名",
+    label: '城市名',
     type: 'input',
     name: 'cityName',
     options: {
@@ -33,7 +33,7 @@ const addImageFields = [
     }
   },
   {
-    label: "发布日期",
+    label: '发布日期',
     type: 'datetime',
     name: 'publishTime',
     options: {
@@ -44,7 +44,7 @@ const addImageFields = [
     }
   },
   {
-    label: "是否显示",
+    label: '是否显示',
     type: 'radioGroup',
     name: 'isShow',
     items: () => {
@@ -57,8 +57,8 @@ const addImageFields = [
           key: '1',
           value: '不显示'
         }
-      ]
-      return showChoose
+      ];
+      return showChoose;
     },
     options: {
       rules: [{
@@ -68,7 +68,7 @@ const addImageFields = [
     }
   },
   {
-    label: "图片预览",
+    label: '图片预览',
     type: 'upload',
     name: 'imagePreview',
     options: {
@@ -78,6 +78,6 @@ const addImageFields = [
       }]
     }
   }
-]
+];
 
-export default addImageFields
+export default addImageFields;

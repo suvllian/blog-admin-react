@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
+import React from 'react';
 
 const articleColumns = [
   {
-  	title: '序号',
-  	dataIndex: 'rowIndex'
+    title: '序号',
+    dataIndex: 'rowIndex'
   },
   {
-  	title: '文章名称',
-  	dataIndex: 'aTopic'
+    title: '文章名称',
+    dataIndex: 'aTopic'
   },
   {
     title: '文章简介',
@@ -33,17 +33,17 @@ const articleColumns = [
   {
     title: '首图预览',
     dataIndex: 'aImage',
-    render: (src) => {
-      return <img className="image-preview" src={src} />
+    render: src => {
+      return <img className="image-preview" src={src} />;
     }
   },
   {
-  	title: '文章预览',
-  	dataIndex: 'aId',
-    render: (id) => {
-      return <a target="_blank" href={`http://suvllian.com/article?id=${id}`}>点击预览</a>
+    title: '文章预览',
+    dataIndex: 'aId',
+    render: id => {
+      return <a target="_blank" rel="noopener noreferrer" href={`http://suvllian.com/article?id=${id}`}>点击预览</a>;
     }
   }
-]
+];
 
-export default articleColumns
+export default articleColumns;

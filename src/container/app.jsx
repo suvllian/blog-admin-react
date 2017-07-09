@@ -3,17 +3,12 @@ import { Route, Link } from 'react-router-dom'
 import { Menu, Icon, Switch, Layout } from 'antd'
 import ImageList from './../page/image-list/index.jsx'
 import BookList from './../page/book-list/index.jsx'
+import ArticleList from './../page/article-list/index.jsx'
 
 import './index.scss'
 
 const { Header, Footer, Sider, Content } = Layout
 const SubMenu = Menu.SubMenu
-
-const articleList = (location, callback) => {
-	require.ensure([], require => {
-		callback(null, require('./../page/article-list/index.jsx').default)
-	})
-}
 
 class Container extends Component {
 	constructor(props) {
@@ -47,7 +42,7 @@ class Container extends Component {
 			    <Header style={{ background: '#fff', marginLeft: '16px', padding: 24 }} />
 			    <Content style={{ margin: '24px 16px 0', padding: 24, background: '#fff', minHeight: 360 }}>
 			      <Route path="/index/image" component={ImageList} />
-			      <Route path="/index/article" getComponent={articleList} />
+			      <Route path="/index/article" component={ArticleList} />
 			      <Route path="/index/book" component={BookList} />
 			    </Content>
 			    <Footer style={{ textAlign: 'center' }}>

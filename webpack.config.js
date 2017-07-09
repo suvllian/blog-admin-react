@@ -1,92 +1,186 @@
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
-// 
-module.exports = {
-  devtool: 'source-map',
-  entry:  {  
-    vendor: [
-      'react',
-      'react-dom',
-      'react-router'],
-    bundle: './src/'
-  },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    chunkFilename: "[name].[chunkhash:20].chunk.js"
-  },
-  resolve:{
-    extensions:['.js','.jsx']
-  },
-  module: {
-    rules: [
-      { 
-        test: /\.jsx?$/, 
-        exclude: /node_modules/, 
-        use: [
-        {
-          loader: 'react-hot-loader'
-        }, 
-        {
-          loader: 'babel-loader',
-          options: {
-            presets: ['react', 'es2015'],
-            plugins: [
-              ["import", {libraryName:"antd", style: "css"}]
-            ] 
-          }
-        }]
-      },
-      { 
-        test: /\.(scss|css)$/, 
-        use: ExtractTextPlugin.extract({ 
-          fallback: 'style-loader', 
-          use:'css-loader?minimize=true!sass-loader'
-        })
-      },
-      { 
-        test: /\.(png|jpg)$/, 
-        use: 'url-loader?limit=25000&name=static/img/[name].[ext]' 
-      }
-    ]
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin( { filename: 'static/css/style.[hash:20].css'}),
+
+//=========================================================
+//  ENVIRONMENT VARS
+//---------------------------------------------------------
+const NODE_ENV = process.env.NODE_ENV;
+
+const ENV_DEVELOPMENT = NODE_ENV === 'development';
+const ENV_PRODUCTION = NODE_ENV === 'production';
+const ENV_TEST = NODE_ENV === 'test';
+
+const HOST = '0.0.0.0';
+const PORT = 3000;
+
+
+//=========================================================
+//  LOADERS
+//---------------------------------------------------------
+const loaders = {
+  js: {test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel'},
+  scss: {test: /\.(scss|css)$/, loader: 'style!css!postcss!sass'},
+  image: {test: /\.(jpg|png|gif)$/, loader: 'file-loader' }
+};
+
+
+//=========================================================
+//  CONFIG
+//---------------------------------------------------------
+const config = {};
+module.exports = config;
+
+
+config.resolve = {
+  extensions: ['', '.js'],
+  modulesDirectories: ['node_modules'],
+  root: path.resolve('.')
+};
+
+config.plugins = [
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
+  })
+];
+
+config.postcss = [
+  autoprefixer({ browsers: ['last 3 versions'] })
+];
+
+config.sassLoader = {
+  outputStyle: 'compressed',
+  precision: 10,
+  sourceComments: false
+};
+
+
+//=====================================
+//  DEVELOPMENT or PRODUCTION
+//-------------------------------------
+if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
+  config.entry = {
+    main: ['./src/index.js']
+  };
+
+  config.output = {
+    filename: '[name].js',
+    path: path.resolve('./target'),
+    publicPath: '/'
+  };
+
+  config.plugins.push(
     new HtmlWebpackPlugin({
+      chunkSortMode: 'dependency',
       filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
+      hash: false,
+      inject: 'body',
+      template: './index.html'
+    })
+  );
+}
 
-    // 打开浏览器
-    new OpenBrowserPlugin({
-      url: 'http://localhost:8080'
-    }),
 
-    // 定义为生产环境，编译 React 时压缩到最小
-    new webpack.DefinePlugin({
-      'process.env':{
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    }),
+//=====================================
+//  DEVELOPMENT
+//-------------------------------------
+if (ENV_DEVELOPMENT) {
+  config.devtool = 'cheap-module-source-map';
 
-    // 提供公共代码
+  config.entry.main.unshift(
+    `webpack-dev-server/client?http://${HOST}:${PORT}`,
+    'webpack/hot/only-dev-server',
+    'react-hot-loader/patch',
+    'babel-polyfill'
+  );
+
+  config.module = {
+    loaders: [
+      loaders.js,
+      loaders.scss,
+      loaders.image
+    ]
+  };
+
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin()
+  );
+
+  config.devServer = {
+    contentBase: './src',
+    historyApiFallback: true,
+    host: HOST,
+    hot: true,
+    port: PORT,
+    publicPath: config.output.publicPath,
+    stats: {
+      cached: true,
+      cachedAssets: true,
+      chunks: true,
+      chunkModules: false,
+      colors: true,
+      hash: false,
+      reasons: true,
+      timings: true,
+      version: false
+    }
+  };
+}
+
+
+//=====================================
+//  PRODUCTION
+//-------------------------------------
+if (ENV_PRODUCTION) {
+  config.devtool = 'source-map';
+
+  config.entry.vendor = './src/vendor.js';
+
+  config.output.filename = '[name].[chunkhash].js';
+
+  config.module = {
+    loaders: [
+      loaders.js,
+      loaders.image,
+      {test: /\.(scss|css)$/, loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass')}
+    ]
+  };
+
+  config.plugins.push(
+    new WebpackMd5Hash(),
+    new ExtractTextPlugin('styles.[contenthash].css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: '[name].[hash:8].js'
+      minChunks: Infinity
     }),
-
-    // 可在业务 js 代码中使用 __DEV__ 判断是否是dev模式（dev模式下可以提示错误、测试报告等, production模式不提示）
-    new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(JSON.parse((process.env.NODE_ENV == 'dev') || 'false'))
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: true,
+      compress: {
+        dead_code: true, // eslint-disable-line camelcase
+        screw_ie8: true, // eslint-disable-line camelcase
+        unused: true,
+        warnings: false
+      }
     })
-  ]
-};
+  );
+}
+
+
+//=====================================
+//  TEST
+//-------------------------------------
+if (ENV_TEST) {
+  config.devtool = 'inline-source-map';
+
+  config.module = {
+    loaders: [
+      loaders.js,
+      loaders.scss
+    ]
+  };
+}

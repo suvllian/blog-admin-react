@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 // const URL = "./static/api/index.php";
 const URL = 'http://127.0.0.1/xunlan/index.php';
 
-const postInit = (formData) => {
+const postInit = formData => {
   return {
     method: 'POST',
     mode: 'cors',
@@ -12,12 +12,12 @@ const postInit = (formData) => {
   };
 };
 
-exports.postFetch = (formData) => {
+exports.postFetch = formData => {
   let data = postInit(formData);
   return fetch(URL, data).then(response => response.json());
 };
 
-exports.getFetch = (data) => {
+exports.getFetch = data => {
   let urlWithParams = URL + '?' + data;
   return fetch(urlWithParams).then(response => response.json());
 };

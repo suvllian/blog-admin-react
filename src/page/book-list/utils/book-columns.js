@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
+import React from 'react';
 
 const bookColumns = [
   {
-  	title: '序号',
-  	dataIndex: 'rowIndex'
+    title: '序号',
+    dataIndex: 'rowIndex'
   },
   {
-  	title: '书籍名称',
-  	dataIndex: 'iName'
+    title: '书籍名称',
+    dataIndex: 'iName'
   },
   {
     title: '书籍简介',
@@ -31,19 +31,19 @@ const bookColumns = [
     dataIndex: 'iLike'
   },
   {
-  	title: '书籍图片',
-  	dataIndex: 'iImage',
-    render: (src) => {
-      return <img className="image-preview" src={src} />
+    title: '书籍图片',
+    dataIndex: 'iImage',
+    render: src => {
+      return <img className="image-preview" src={src} />;
     }
   },
   {
     title: '背景图片',
     dataIndex: 'iBgLink',
-    render: (src) => {
-      return <img className="image-preview" src={src} />
+    render: src => {
+      return <img className="image-preview" src={src} />;
     }
   }
-]
+];
 
-export default bookColumns
+export default bookColumns;
