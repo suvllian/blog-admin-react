@@ -8,27 +8,47 @@ class ArticleList extends Component {
 		super(props);
 		
 		this.state = {
-			articleList: []
+      isFetching: false,
+			articleList: [],
+      articleCount: 0
 		}
 	}
+
+  changePage(page) {
+    this.getArticles(page)
+  }
+
+  getArticles(page) {
+    this.setState({
+      isFetching: true
+    })
+
+    fetch(`http://127.0.0.1/sadmin/index.php?do=article&concrete=allArticle&page=${page}`)
+    .then(res => res.json())
+    .then(res => {
+      this.setState({
+        isFetching: false,
+        articleList: res.data,
+        articleCount: parseInt(res.count)
+      })
+    })
+  }
   
   componentDidMount() {
-  	fetch('http://127.0.0.1/sadmin/index.php?do=article&concrete=allArticle')
-  	.then(res => res.json())
-  	.then(res => {
-      res.map((item, index) => {
-        item.aShow = item.aShow ? "是" : "否"
-      })
-  		this.setState({articleList: res})
-  	})
+  	this.getArticles(1)
   }
 
 	render() {
+    const { isFetching, articleList, articleCount } = this.state
+
     return (
     	<div>
     		<Table 
-          data={this.state.articleList}
+          data={articleList}
           title={articleColumns}
+          isFetching={isFetching}
+          total={articleCount}
+          changePage={::this.changePage}
     		/>
     	</div>
     )

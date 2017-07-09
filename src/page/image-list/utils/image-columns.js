@@ -1,10 +1,7 @@
 import React from 'react';
+import { Icon, Tooltip } from 'antd'
 
 const imageColumns = [
-  {
-    title: '序号',
-    dataIndex: 'rowIndex'
-  },
   {
     title: '图片名称',
     dataIndex: 'iTopic'
@@ -23,7 +20,10 @@ const imageColumns = [
   },
   {
     title: '是否显示',
-    dataIndex: 'iShow'
+    dataIndex: 'iShow',
+    render: text => {
+      return text ? '是' : '否'
+    }
   },
   {
     title: '点赞数',
@@ -36,6 +36,6 @@ const imageColumns = [
       return <img className="image-preview" src={`http:\/\/suvllian.com/static/images/travel/${text}.jpg`} />;
     }
   }
-];
+]
 
 export default imageColumns;

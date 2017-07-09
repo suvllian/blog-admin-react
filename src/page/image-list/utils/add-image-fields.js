@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const addImageFields = [
   {
     label: '图片名称',
@@ -37,6 +39,7 @@ const addImageFields = [
     type: 'datetime',
     name: 'publishTime',
     options: {
+      initialValue: moment(),
       rules: [{
         required: true,
         message: '输入发布时间！'
@@ -50,17 +53,18 @@ const addImageFields = [
     items: () => {
       let showChoose = [
         {
-          key: '0',
+          key: 1,
           value: '显示'
         },
         {
-          key: '1',
+          key: 0,
           value: '不显示'
         }
       ];
       return showChoose;
     },
     options: {
+      initialValue: 1,
       rules: [{
         required: true,
         message: '请选择！'
@@ -74,7 +78,7 @@ const addImageFields = [
     options: {
       rules: [{
         required: true,
-        message: '输入发布时间！'
+        message: '输入选择图片！'
       }]
     }
   }

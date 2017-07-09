@@ -2,10 +2,6 @@ import React from 'react';
 
 const articleColumns = [
   {
-    title: '序号',
-    dataIndex: 'rowIndex'
-  },
-  {
     title: '文章名称',
     dataIndex: 'aTopic'
   },
@@ -24,7 +20,10 @@ const articleColumns = [
   },
   {
     title: '是否显示',
-    dataIndex: 'aShow'
+    dataIndex: 'aShow',
+    render: text => {
+      return text ? '是' : '否'
+    }
   },
   {
     title: '访问量',

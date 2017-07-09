@@ -2,10 +2,6 @@ import React from 'react';
 
 const bookColumns = [
   {
-    title: '序号',
-    dataIndex: 'rowIndex'
-  },
-  {
     title: '书籍名称',
     dataIndex: 'iName'
   },
@@ -24,7 +20,10 @@ const bookColumns = [
   },
   {
     title: '是否显示',
-    dataIndex: 'iShow'
+    dataIndex: 'iShow',
+    render: text => {
+      return text ? '是' : '否'
+    }
   },
   {
     title: '点赞数',

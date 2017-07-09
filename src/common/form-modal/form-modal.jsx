@@ -11,7 +11,6 @@ class FormModal extends Component {
         title={title}
         onCancel={onCancel}
         visible={visible}
-        onCancel={onCancel}
         maskClosable={false}
         footer={null}
       >

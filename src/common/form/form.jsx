@@ -1,11 +1,16 @@
 import React, { PropTypes as T, Component } from 'react'
 import { Button, Input, InputNumber, Select,
   DatePicker, Form, Radio, Switch } from 'antd'
+import moment from 'moment'
 
 const FormItem = Form.Item 
 const RadioGroup = Radio.Group 
 
 class FormBlock extends Component {
+	constructor(props) {
+		super(props);
+		
+	}
 
 	getTextField(field) {
 		return (
@@ -55,7 +60,7 @@ class FormBlock extends Component {
 		return (
       <RadioGroup>
 		    {field.items().map(({ key, value }) =>
-		      <Radio key={key.toString()} value={key.toString()}>{value}</Radio>
+		      <Radio key={key.toString()} value={key}>{value}</Radio>
 		    )}
 		  </RadioGroup>
 		)
@@ -77,6 +82,7 @@ class FormBlock extends Component {
 	      format="YYYY-MM-DD"
 	      placeholder="请选择时间"
 	      showToday={false}
+	      onChange={value => console.log(value._d.toString())}
 	    />
 		)
 	}
@@ -184,8 +190,8 @@ class FormBlock extends Component {
         }}
       >
         <div className="buttons">
-          {!this.props.noBtn && <Button type="primary" htmlType="submit">{this.props.okText || '确定'}</Button>}
-          {this.props.showCancel && <Button onClick={this.onCancel.bind(this)}>取消</Button>}
+          <Button type="primary" htmlType="submit" style={{marginRight: 15}}>{this.props.okText || '确定'}</Button>
+          <Button onClick={::this.onCancel}>取消</Button>
         </div>
 
       </FormItem>
@@ -196,11 +202,19 @@ class FormBlock extends Component {
   }
 
 	render() {
-		const { fields } = this.props 
+		const { fields, onOk } = this.props 
 
 		return (
       <div className="formWrapper">
-        <Form>
+        <Form onSubmit={e => {
+        	e.preventDefault()
+        	console.log(e.target)
+			    console.log(e.target.imageName.value)
+			    console.log(e.target.imageContent.value)
+			    console.log(e.target.cityName.value)
+			    console.log(e.target.publishTime.value)
+        	onOk(e.target)
+        }}>
           {this.generateFormFields(fields)}
         </Form>
       </div>
