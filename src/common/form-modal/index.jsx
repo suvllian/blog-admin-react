@@ -1,6 +1,6 @@
 import React, { PropTypes as T, Component } from 'react'
 import { Modal } from 'antd'
-import FormBlock from './../form/form.jsx'
+import FormBlock from './../form/index.jsx'
 
 class FormModal extends Component {
   render() {

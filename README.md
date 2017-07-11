@@ -1,8 +1,9 @@
 ## 博客后端页面  
 未完成：  
-* 面包屑导航
 * banner设计   
 * 使用classnames库  
+* 主页
+* To Do页面
 ------ 
 已完成：  
 * 技术选型：react + react-router + redux + sass + fetch
@@ -26,7 +27,7 @@
 |  |--container              // 页面容器
 |  |--page                   // 页面组件
 |     |--example             // 
-|        |--utils            // 页面配置
+|        |--config            // 页面配置
 |        |--components       // 页面区块组件
 |        |--index.jsx        // 页面组件入口
 |        |--index.scss       // 页面组件样式 

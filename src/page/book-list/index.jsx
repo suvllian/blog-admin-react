@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import 'isomorphic-fetch'
-import Table from './../../common/table/table.jsx'
-import FormModal from './../../common/form-modal/form-modal.jsx'
 import { Button, Modal, message } from 'antd'
-import bookColumns from './utils/book-columns.js'
-import editBookFields from './utils/edit-book-fields.js'
+import 'isomorphic-fetch'
+import Table from './../../common/table/index.jsx'
+import FormModal from './../../common/form-modal/index.jsx'
+import bookColumns from './config/book-columns.js'
+import editBookFields from './config/edit-book-fields.js'
+import './index.scss'
 
 const confirm = Modal.confirm
 
@@ -23,10 +24,10 @@ class BookList extends Component {
 	}
   
   componentDidMount() {
-  	this.getBooks(1)
+  	this.getBooks()
   }
 
-  getBooks(page) {
+  getBooks(page = 1) {
     this.setState({
       isFetching: true
     })
@@ -88,7 +89,7 @@ class BookList extends Component {
   }
 
 	render() {
-    const { isAdding, isEditing, bookList, bookCount, isFetching, editField } = this.state
+    const { isAdding = false, isEditing = false, isFetching = false, bookList, bookCount, editField } = this.state
 
     const actions = [
       {

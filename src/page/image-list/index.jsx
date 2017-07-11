@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import { Button, Modal, message } from 'antd'
 import 'isomorphic-fetch'
-import Table from './../../common/table/table.jsx'
-import FormModal from './../../common/form-modal/form-modal.jsx'
-import imageColumns from './utils/image-columns.js'
-import addImageFields from './utils/add-image-fields.js'
-import editImageFields from './utils/edit-image-fields.js'
+import Table from './../../common/table/index.jsx'
+import FormModal from './../../common/form-modal/index.jsx'
+import imageColumns from './config/image-columns.js'
+import addImageFields from './config/add-image-fields.js'
+import editImageFields from './config/edit-image-fields.js'
+import './index.scss'
 
 const confirm = Modal.confirm
 
@@ -24,16 +25,16 @@ class ImageList extends Component {
 	}
 
   componentDidMount() {
-    this.getImages(1)
+    this.getImages()
   }
 
   // 分页，获取新数据
-  changePage(page) {
+  changePage(page = 1) {
     this.getImages(page)
   }
 
   // 获取图片信息
-  getImages(page) {
+  getImages(page = 1) {
     this.setState({
       isFetching: true
     })
@@ -91,7 +92,7 @@ class ImageList extends Component {
   }
 
 	render() {
-    const { isAdding, isEditing, imageList, isFetching, imageCount, editField } = this.state
+    const { isAdding = false, isEditing = false, isFetching = false, imageList, imageCount, editField } = this.state
 
     const actions = [
       {

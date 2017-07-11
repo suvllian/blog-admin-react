@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import 'isomorphic-fetch'
-import Table from './../../common/table/table.jsx'
-import articleColumns from './utils/article-columns.js'
+import Table from './../../common/table/index.jsx'
+import articleColumns from './config/article-columns.js'
+import './index.scss'
 
 class ArticleList extends Component {
 	constructor(props) {
@@ -14,11 +15,11 @@ class ArticleList extends Component {
 		}
 	}
 
-  changePage(page) {
+  changePage(page = 1) {
     this.getArticles(page)
   }
 
-  getArticles(page) {
+  getArticles(page = 1) {
     this.setState({
       isFetching: true
     })
@@ -35,11 +36,11 @@ class ArticleList extends Component {
   }
   
   componentDidMount() {
-  	this.getArticles(1)
+  	this.getArticles()
   }
 
 	render() {
-    const { isFetching, articleList, articleCount } = this.state
+    const { isFetching = false, articleList = [], articleCount = 0 } = this.state
 
     return (
     	<div>
