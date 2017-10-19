@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react'
+import { Icon, Tooltip } from 'antd'
+import { Link } from 'react-router-dom'
 
 const articleColumns = [
   {
@@ -37,10 +39,22 @@ const articleColumns = [
     }
   },
   {
-    title: '文章预览',
+    title: '预览/修改',
     dataIndex: 'aId',
     render: id => {
-      return <a target="_blank" rel="noopener noreferrer" href={`http://suvllian.com/article?id=${id}`}>点击预览</a>;
+      return <span>
+        <Tooltip title='预览'>
+          <a target="_blank" rel="noopener noreferrer" href={`http://suvllian.com/article/${id}`} 
+            style={{ color: 'green', marginRight: 12, fontSize: 14 }}>
+            <Icon type='eye' />
+          </a>
+        </Tooltip>
+        <Tooltip title='修改'>
+          <Link to="/index/edit-article">
+            <Icon type='edit' style={{ color: 'blue', fontSize: 14 }} />
+          </Link>
+        </Tooltip>
+      </span>
     }
   }
 ];

@@ -1,10 +1,9 @@
-import React, {Component} from 'react'
-import {Table, Menu, Dropdown, Icon, Tooltip} from 'antd'
-import './index.scss'
+import React, { Component } from 'react'
+import { Table, Menu, Dropdown, Icon, Tooltip } from 'antd'
 
 class TableComponent extends Component {
 	constructor(props) {
-		super(props);
+		super(props) 
 	}
 
   changePage(page){
@@ -18,7 +17,7 @@ class TableComponent extends Component {
   }
 
 	render() {
-		const { title, data, isFetching, total, actions } = this.props
+		const { title, dataSource, isFetching, total, actions } = this.props
 
     const columns = [{
       dataIndex: 'rowIndex',
@@ -48,13 +47,13 @@ class TableComponent extends Component {
       })
     }
     
-    data.map((item, index) => { item.rowIndex = index + 1 })
+    dataSource.map((item, index) => { item.rowIndex = index + 1 })
 
 		return (
       <div className="table">
       	<Table 
           columns={columns}
-          dataSource={data}
+          dataSource={dataSource}
           loading={isFetching}
           pagination={{
             pageSize: 8,

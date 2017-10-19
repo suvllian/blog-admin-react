@@ -1,8 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import { hashHistory } from 'react-router'
+import { Button, Modal, message } from 'antd'
 import 'isomorphic-fetch'
 import Table from './../../common/table/index.jsx'
 import articleColumns from './config/article-columns.js'
 import './index.scss'
+
+const confirm = Modal.confirm
 
 class ArticleList extends Component {
 	constructor(props) {
@@ -13,7 +17,11 @@ class ArticleList extends Component {
 			articleList: [],
       articleCount: 0
 		}
-	}
+  }
+  
+  componentDidMount() {
+  	this.getArticles()
+  }
 
   changePage(page = 1) {
     this.getArticles(page)
@@ -34,22 +42,41 @@ class ArticleList extends Component {
       })
     })
   }
-  
-  componentDidMount() {
-  	this.getArticles()
+
+  tableAction(actionKey, item) {
+    if (actionKey === 'delete') {
+      confirm({
+        title: '提示',
+        content: '确认删除？',
+        onOk: () => {
+          message.success('删除成功')
+        }
+      })
+    }
   }
 
 	render() {
     const { isFetching = false, articleList = [], articleCount = 0 } = this.state
 
+    const actions = [
+      {
+        key: 'delete',
+        name: '删除',
+        color: 'red',
+        icon: 'delete'
+      }
+    ]
+
     return (
     	<div>
     		<Table 
-          data={articleList}
+          dataSource={articleList}
           title={articleColumns}
           isFetching={isFetching}
+          actions={actions}
           total={articleCount}
           changePage={::this.changePage}
+          onCtrlClick={::this.tableAction}
     		/>
     	</div>
     )

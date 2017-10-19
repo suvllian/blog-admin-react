@@ -4,6 +4,7 @@ import { Menu, Icon, Switch, Layout, Breadcrumb } from 'antd'
 import ImageList from './../page/image-list/index.jsx'
 import BookList from './../page/book-list/index.jsx'
 import ArticleList from './../page/article-list/index.jsx'
+import EditArticle from './../page/edit-article/index.jsx'
 import './index.scss'
 
 const { Header, Footer, Sider, Content } = Layout
@@ -37,10 +38,10 @@ class Container extends Component {
 	        <Menu
 	          theme='dark'
 	          mode="inline"
-	          style={{ width: 200 }}
+	          style={{ width: 200, height: '100vh' }}
 	        >
 	          <SubMenu key="articl" title={<span><Icon type="folder" /><span>文章管理</span></span>}>
-	            <Menu.Item key="1"><Link to="/index/article">文章列表</Link></Menu.Item>
+	            <Menu.Item key="1"><Link to="/index/article-list">文章列表</Link></Menu.Item>
 	            <Menu.Item key="2">添加文章</Menu.Item>
 	          </SubMenu>
 	          <SubMenu key="camera" title={<span><Icon type="camera" /><span>图片管理</span></span>}>
@@ -59,7 +60,8 @@ class Container extends Component {
 			    </Header>
 			    <Content style={{ margin: '24px 16px 0', padding: 24, background: '#fff', minHeight: 360 }}>
 			      <Route breadcrumbName="图片管理" path="/index/image" component={ImageList} />
-			      <Route breadcrumbName="文章管理" path="/index/article" component={ArticleList} />
+			      <Route breadcrumbName="文章管理" path="/index/article-list" component={ArticleList} />
+			      <Route breadcrumbName="修改文章" path="/index/edit-article" component={EditArticle} />
 			      <Route breadcrumbName="书籍管理" path="/index/book" component={BookList} />
 			    </Content>
 			    <Footer style={{ textAlign: 'center' }}>
